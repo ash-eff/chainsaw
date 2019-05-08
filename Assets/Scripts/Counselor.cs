@@ -10,6 +10,10 @@ public class Counselor : MonoBehaviour
     private float maxSpeed = 0;
     [SerializeField]
     private GameObject soulPrefab;
+    [SerializeField]
+    private Splat splat;
+    [SerializeField]
+    private int numberOfSplats;
 
     private float speed;
 
@@ -38,5 +42,63 @@ public class Counselor : MonoBehaviour
     private void OnDestroy()
     {
         Instantiate(soulPrefab, transform.position, Quaternion.identity);
+        Vector3 lastDir = direction.normalized;
+        for (int i = 0; i < numberOfSplats; i++)
+        {
+            Vector3 sprayDir = SprayDirection(lastDir);
+            Splat splatObj = Instantiate(splat, transform.position + sprayDir, Quaternion.identity);
+            splatObj.Initialize();
+        }
+    }
+
+    Vector3 SprayDirection(Vector2 v)
+    {
+        Debug.Log("Dir: " + v);
+        float randomDirMult = Random.Range(2, 8);
+        float randomDirAdd = Random.Range(0, 1);
+        Vector2 sprayDirection = v;
+
+        // if positive or zero
+        if (v.x > 0f)
+        {
+            Debug.Log("X is positive");
+            // make negative
+            sprayDirection.x = -v.x;
+        }
+        else
+        {
+            Debug.Log("X is negative");
+            sprayDirection.x = Mathf.Abs(v.x);
+        }
+
+        if (v.y > 0f)
+        {
+            Debug.Log("Y is positive");
+            sprayDirection.y = -v.y;
+        }
+        else
+        {
+            Debug.Log("Y is negative");
+            sprayDirection.y = Mathf.Abs(v.y);
+        }
+
+        Debug.Log("SprayDir: " + sprayDirection);
+
+        if (Mathf.Abs(sprayDirection.x) > Mathf.Abs(sprayDirection.y))
+        {
+            Debug.Log("X is greater");
+            sprayDirection.x *= randomDirMult;
+            sprayDirection.y += randomDirAdd;
+        }
+        else
+        {
+            Debug.Log("Y is greater");
+            sprayDirection.y *= randomDirMult;
+            sprayDirection.x += randomDirAdd;
+        }
+
+        Debug.Log("SprayDirMod: " + sprayDirection);
+
+        return new Vector3(sprayDirection.x, sprayDirection.y, 0);
     }
 }

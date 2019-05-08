@@ -6,11 +6,17 @@ public class Soul : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private Sprite[] sprites;
 
     private Player player;
+    private SpriteRenderer spr;
 
     private void Awake()
     {
+        spr = GetComponent<SpriteRenderer>();
+        int randIndex = Random.Range(0, sprites.Length);
+        spr.sprite = sprites[randIndex];
         player = FindObjectOfType<Player>();
         StartCoroutine(MoveToTarget());
     }

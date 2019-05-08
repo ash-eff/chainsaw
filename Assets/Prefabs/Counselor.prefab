@@ -145,3 +145,5 @@ MonoBehaviour:
   maxSpeed: 7
   soulPrefab: {fileID: 6175025877487221778, guid: 650fc90d3851a3945b1c4f76cbce888f,
     type: 3}
+  splat: {fileID: 8883502304930563745, guid: b0fbe7ac07925db43ad4dac187e59801, type: 3}
+  numberOfSplats: 4

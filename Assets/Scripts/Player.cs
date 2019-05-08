@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     public float health;
     public int souls;
 
+    [SerializeField]
+    private Animator anim;
     private Rigidbody2D rb2d;
     private Vector3 velocity;
 
@@ -54,15 +56,6 @@ public class Player : MonoBehaviour
         lookPos = lookPos - chainSaw.transform.position;
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
 
-        if(angle > 45 && angle < 135)
-        {
-            chainSaw.GetComponent<SpriteRenderer>().sortingOrder = 2;
-        }
-        else
-        {
-            chainSaw.GetComponent<SpriteRenderer>().sortingOrder = 4;
-        }
-
         chainSaw.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
@@ -74,6 +67,14 @@ public class Player : MonoBehaviour
     void Move()
     {
         velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0f);
+        if (Mathf.Abs(velocity.x) > 0 || Mathf.Abs(velocity.y)> 0)
+        {
+            anim.SetTrigger("Walking");
+        }
+        else
+        {
+            anim.ResetTrigger("Walking");
+        }
     }
 
     public void CollectSoul()

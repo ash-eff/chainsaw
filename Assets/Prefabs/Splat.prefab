@@ -95,6 +95,10 @@ MonoBehaviour:
   minSize: 0.8
   maxSize: 1.5
   sprites:
-  - {fileID: 21300000, guid: 5793b559c3a1dd5419eb64971fa321fc, type: 3}
-  - {fileID: 21300000, guid: 53a7b6597a111a54b88b519e9919c4b3, type: 3}
-  - {fileID: 21300000, guid: 12b48d2de373bd844874e29a0b7a3eb8, type: 3}
+  - {fileID: 21300000, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
+  - {fileID: 21300002, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
+  - {fileID: 21300004, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
+  - {fileID: 21300006, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
+  - {fileID: 21300008, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
+  - {fileID: 21300010, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
+  - {fileID: 21300012, guid: 0c9c5b887865c8f45818d2e59b05801b, type: 3}
