@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     private Image healthAmount;
     [SerializeField]
     private TextMeshProUGUI soulsAmountText;
+    [SerializeField]
+    private Vector2 maxClamp;
+    [SerializeField]
+    private Vector2 minClamp;
 
     public float health;
     public int souls;
@@ -56,12 +60,17 @@ public class Player : MonoBehaviour
         lookPos = lookPos - chainSaw.transform.position;
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
 
-        chainSaw.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        chainSaw.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);    
     }
 
     private void FixedUpdate()
     {
-        rb2d.MovePosition(transform.position + velocity.normalized * speed * Time.fixedDeltaTime);
+        Vector3 movePos = transform.position + velocity.normalized * speed * Time.deltaTime;
+
+        movePos.x = Mathf.Clamp(movePos.x, minClamp.x, maxClamp.x);
+        movePos.y = Mathf.Clamp(movePos.y, minClamp.y, maxClamp.y);
+        
+        rb2d.MovePosition(movePos);
     }
 
     void Move()

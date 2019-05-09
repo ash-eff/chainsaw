@@ -14,6 +14,10 @@ public class Counselor : MonoBehaviour
     private Splat splat;
     [SerializeField]
     private int numberOfSplats;
+    [SerializeField]
+    private GameObject leftArm;
+    [SerializeField]
+    private GameObject rightArm;
 
     private float speed;
 
@@ -32,6 +36,18 @@ public class Counselor : MonoBehaviour
     void Update()
     {
         direction = player.transform.position - transform.position;
+
+        Vector3 targetDirRight = player.transform.position - rightArm.transform.position;
+        Vector3 targetDirLeft = player.transform.position - leftArm.transform.position;
+
+        float angleRight = Mathf.Atan2(targetDirRight.y, targetDirRight.x) * Mathf.Rad2Deg;
+        float angleLeft = Mathf.Atan2(targetDirLeft.y, targetDirLeft.x) * Mathf.Rad2Deg;
+
+        Quaternion rotRight = Quaternion.AngleAxis(angleRight, Vector3.forward);
+        Quaternion rotLeft = Quaternion.AngleAxis(angleLeft, Vector3.forward);
+
+        rightArm.transform.rotation = Quaternion.Slerp(rightArm.transform.rotation, rotRight, Time.deltaTime * speed);
+        leftArm.transform.rotation = Quaternion.Slerp(leftArm.transform.rotation, rotLeft, Time.deltaTime * speed);
     }
 
     private void FixedUpdate()
@@ -53,7 +69,6 @@ public class Counselor : MonoBehaviour
 
     Vector3 SprayDirection(Vector2 v)
     {
-        Debug.Log("Dir: " + v);
         float randomDirMult = Random.Range(2, 8);
         float randomDirAdd = Random.Range(0, 1);
         Vector2 sprayDirection = v;
@@ -61,44 +76,33 @@ public class Counselor : MonoBehaviour
         // if positive or zero
         if (v.x > 0f)
         {
-            Debug.Log("X is positive");
             // make negative
             sprayDirection.x = -v.x;
         }
         else
         {
-            Debug.Log("X is negative");
             sprayDirection.x = Mathf.Abs(v.x);
         }
 
         if (v.y > 0f)
         {
-            Debug.Log("Y is positive");
             sprayDirection.y = -v.y;
         }
         else
         {
-            Debug.Log("Y is negative");
             sprayDirection.y = Mathf.Abs(v.y);
         }
 
-        Debug.Log("SprayDir: " + sprayDirection);
-
         if (Mathf.Abs(sprayDirection.x) > Mathf.Abs(sprayDirection.y))
         {
-            Debug.Log("X is greater");
             sprayDirection.x *= randomDirMult;
             sprayDirection.y += randomDirAdd;
         }
         else
         {
-            Debug.Log("Y is greater");
             sprayDirection.y *= randomDirMult;
             sprayDirection.x += randomDirAdd;
         }
-
-        Debug.Log("SprayDirMod: " + sprayDirection);
-
         return new Vector3(sprayDirection.x, sprayDirection.y, 0);
     }
 }

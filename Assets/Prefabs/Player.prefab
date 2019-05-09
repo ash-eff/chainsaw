@@ -502,19 +502,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8220953459326152630}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &4653647279606157334
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -549,6 +549,8 @@ MonoBehaviour:
   chainSaw: {fileID: 8220953459797757308}
   healthAmount: {fileID: 0}
   soulsAmountText: {fileID: 0}
+  maxClamp: {x: 0, y: 0}
+  minClamp: {x: 0, y: 0}
   health: 0
   souls: 0
   anim: {fileID: 8712342397041668944}

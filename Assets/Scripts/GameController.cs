@@ -7,6 +7,11 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    public int changeTimer;
+    public int adjustAmount;
+    public float startTimer;
+    public  float spawn;
+
     public GameObject gameOverScreen;
 
     private bool gameOver;
@@ -21,6 +26,11 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public float SpawnTime
+    {
+        get { return spawn; }
+    }
+
     private void Awake()
     {
         if(instance == null)
@@ -30,6 +40,31 @@ public class GameController : MonoBehaviour
         else
         {
             Destroy(this);
+        }
+
+        spawn = startTimer;
+    }
+
+    private void Update()
+    {
+        GameAdjust();
+    }
+
+    void GameAdjust()
+    {
+        if (Time.timeSinceLevelLoad > changeTimer)
+        {
+            changeTimer += adjustAmount;
+            float spawnAdj = spawn - .25f;
+
+            if (spawn < .5f)
+            {
+                spawn = .5f;
+            }
+            else
+            {
+                spawn = spawnAdj;
+            }
         }
     }
 
