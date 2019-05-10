@@ -55,12 +55,7 @@ public class Player : MonoBehaviour
         soulsAmountText.text = souls.ToString("0000");
 
         Move();
-        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f);
-        Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
-        lookPos = lookPos - chainSaw.transform.position;
-        float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
-
-        chainSaw.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);    
+        WeaponRotation();
     }
 
     private void FixedUpdate()
@@ -84,6 +79,20 @@ public class Player : MonoBehaviour
         {
             anim.ResetTrigger("Walking");
         }
+    }
+
+    void WeaponRotation()
+    {
+        Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f);
+        Vector3 weaponPos = Camera.main.WorldToScreenPoint(chainSaw.transform.position);
+        //Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
+        //lookPos = lookPos - chainSaw.transform.position;
+        mousePos.x = mousePos.x - weaponPos.x;
+        mousePos.y = mousePos.y - weaponPos.y;
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+
+        //chainSaw.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        chainSaw.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     public void CollectSoul()

@@ -13,8 +13,10 @@ public class GameController : MonoBehaviour
     public  float spawn;
 
     public GameObject gameOverScreen;
+    public GameObject pauseMenu;
 
     private bool gameOver;
+    private bool paused;
 
     public bool GameOver
     {
@@ -47,7 +49,13 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if (gameOver)
+        {
+            return;
+        }
+
         GameAdjust();
+        Pause();
     }
 
     void GameAdjust()
@@ -65,6 +73,25 @@ public class GameController : MonoBehaviour
             {
                 spawn = spawnAdj;
             }
+        }
+    }
+
+    void Pause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            paused = !paused;
+        }
+
+        pauseMenu.SetActive(paused);
+
+        if (paused)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 
